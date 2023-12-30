@@ -1,14 +1,20 @@
 import express from "express";
 import cors from "cors";
+import dotenv from "dotenv";
 
-export class App {
-  static bootstrap() {
-    const app = express();
+dotenv.config();
 
-    app.use(cors());
-    app.use(express.json());
-    app.use(express.urlencoded({ extended: true }));
+const port = process.env.PORT || 9000;
+const app = express();
 
-    return app;
-  }
-}
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
+app.listen(port, () => {
+  console.log(`Application listening on port ${port}`);
+});

@@ -10,49 +10,9 @@ Passo a passo para iniciar essa aplicação usando node, express e typescrypt
 
 - No arquivo `tsconfig.json` adicionar a propriedade `"outDir": "./dist"` dentro de `"compilerOptions"`
 
-- Criar 0 arquivo `.env ` com o conteúdo `PORT=3000`
+- Criar 0 arquivo `.env `
 
-- Criar os arquivos `src/index.ts` e `src/app.ts`
-
-  - Adicionar ao `src/app.ts` o seguinte código:
-
-    ```
-    import express from "express";
-    import cors from "cors";
-
-    export class App {
-        static bootstrap() {
-            const app = express();
-
-            app.use(cors());
-            app.use(express.json());
-            app.use(express.urlencoded({ extended: true }));
-
-            return app;
-        }
-    }
-    ```
-
-  - E ao `src/index.ts` adicionar o seguinte código:
-
-    ```
-    import { App } from "./app";
-    import dotenv from "dotenv";
-
-    dotenv.config();
-
-    const port = process.env.PORT || 9000;
-
-    const app = App.bootstrap();
-
-    app.get("/", (req, res) => {
-        res.send("Hello World!");
-    });
-
-    app.listen(port, () => {
-        console.log(`Application listening on port ${port}`);
-    });
-    ```
+- Criar o arquivo que vai iniciar sua aplicação dentro da pasta `src`, por exemplo `src/app.ts`
 
 - Criar um arquivo `nodemon.json` na raíz do projeto com o seguinte conteúdo:
 
@@ -60,7 +20,7 @@ Passo a passo para iniciar essa aplicação usando node, express e typescrypt
   {
       "watch": ["src"],
       "ext": "ts",
-      "exec": "ts-node ./src/index.ts"
+      "exec": "ts-node ./src/app.ts"
   }
   ```
 
@@ -71,7 +31,7 @@ Passo a passo para iniciar essa aplicação usando node, express e typescrypt
     ...
     "dev": "nodemon",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/app.js"
     ...
   }
   ...
