@@ -1,6 +1,7 @@
 import express, { Express, Router } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import { PublicRoutes } from "./routes/public.routes";
 
 dotenv.config();
 
@@ -26,13 +27,7 @@ class App {
   private configRoutes(): void {
     const routes = Router();
 
-    routes.get("/", (req, res) => {
-      res.send("Hello World!");
-    });
-
-    routes.get("/ping", (req, res) => {
-      res.json({ pong: true });
-    });
+    new PublicRoutes(routes);
 
     this.express.use(routes);
   }
